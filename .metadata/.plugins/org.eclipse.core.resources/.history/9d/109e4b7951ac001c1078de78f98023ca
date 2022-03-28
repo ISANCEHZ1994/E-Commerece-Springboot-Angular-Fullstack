@@ -1,0 +1,22 @@
+package com.luv2code.ecommerce.entity;
+
+import java.util.Set;
+
+import javax.persistence.*;
+
+// Not using @Data because it will give error for OneToMany/ManyToOne relationships
+import lombok.*;
+
+@Entity
+@Table( name = "product_category" )
+@Getter
+@Setter
+public class ProductCategory {
+
+	private Long id;
+	
+	private String categoryName;
+	
+	private Set< Product > products;
+	
+};

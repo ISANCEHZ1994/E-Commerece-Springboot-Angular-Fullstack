@@ -1,0 +1,32 @@
+package com.luv2code.ecommerce.entity;
+
+// @Data instead of using Data from Lombok like in Product.java class usual getters and setters
+// There is an error when we try to make relationships like OneToMany and ManyToOne
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Set;
+
+import javax.persistence.*;
+
+@Getter 
+@Setter 
+@Entity
+@Table( name = "product_category" )
+public class ProductCategory {
+
+	@Id
+	@GeneratedValue( strategy = GenerationType.IDENTITY )
+	@Column( name = "id" )	
+	private Long id;
+	
+	
+	@Column( name = "category_name" )
+	private String categoryName;
+	
+	// think of SQL database table - the id of below is going to the Product java file
+	// which will connect it to make One To Many RelationShip
+	@OneToMany( cascade = CascadeType.ALL, mappedBy = "category" )	
+	private Set<Product> products;	
+	
+};
