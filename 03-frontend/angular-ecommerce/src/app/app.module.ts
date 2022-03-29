@@ -7,6 +7,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 // import { ProductListTableComponent } from './components/product-list-table/product-list-table.component';
 
+import { Routes, RouterModule } from '@angular/router';
+const routes: Routes = [
+    { path: 'category/:id', component: ProductListComponent },
+    { path: 'category', component: ProductListComponent },
+    { path: 'products', component: ProductListComponent },
+    { path: '', redirectTo: '/products', pathMatch: 'full' },
+    // ** <== means generic wildcard
+    { path: '**', redirectTo: '/products', pathMatch: 'full' },
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,6 +24,7 @@ import { ProductService } from './services/product.service';
     // ProductListTableComponent
   ],
   imports: [
+    RouterModule.forRoot( routes ),
     BrowserModule,
     HttpClientModule
   ],

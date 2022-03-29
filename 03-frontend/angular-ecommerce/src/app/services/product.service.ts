@@ -10,10 +10,13 @@ import { map } from 'rxjs/operators'
 })
 export class ProductService {
 
+  // by default Angular only recieves the first 20 items so we must specify it..
+  // private baseUrl = "http://localhost:8080/api/products?size=100";
   private baseUrl = "http://localhost:8080/api/products";
 
   constructor( private httpClient: HttpClient ) { };
 
+  // fetching data from MySQL database
   getProductList(): Observable<Product[]>{
       return this.httpClient
           .get<GetResponse>(this.baseUrl)
