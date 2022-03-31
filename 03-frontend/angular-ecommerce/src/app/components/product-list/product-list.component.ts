@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/services/product.service';
-import { Product } from 'src/app/common/product';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit }  from '@angular/core';
+import { ProductService }     from 'src/app/services/product.service';
+import { Product }            from 'src/app/common/product';
+import { ActivatedRoute }     from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -17,6 +17,7 @@ export class ProductListComponent implements OnInit {
   // placing the fetched data from the Service into the below variable: products - using Model 
   products: Product[];
   currentCategoryId: number;
+  currentCategoryName: string;
 
   // Inject the ActivatedRoute
   constructor(
@@ -43,16 +44,19 @@ export class ProductListComponent implements OnInit {
     // 'id' => read the id parameter
 
     if( hasCategoryId ){
-      // get the "id" param string. convert string to a number using the "+"
+      // get the "id" param string. convert string to a number using the "+" symbol 
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
-      // using the "+" symbol to convert to number
+       // get the "name" param string
+      this.currentCategoryName = this.route.snapshot.paramMap.get('name');
     }else{
+      // no category id available...default to category id 1
       this.currentCategoryId = 1;
-    }
-
-    // now get the products for the given category id
+      this.currentCategoryName = 'Books';
+    };
+ 
     this.productService
-      .getProductList()
+      // now get the products for the given category id
+      .getProductList( this.currentCategoryId )
       .subscribe( data => {
           this.products = data;
       })

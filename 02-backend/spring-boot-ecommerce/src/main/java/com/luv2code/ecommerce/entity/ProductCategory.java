@@ -1,6 +1,4 @@
 package com.luv2code.ecommerce.entity;
-import com.luv2code.ecommerce.entity.Product;
-
 import java.util.Set;
 
 import javax.persistence.*;
