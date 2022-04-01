@@ -1,3 +1,5 @@
+// I believe they need to have the EXACT same names as in database..
+
 export class Product {
     sku: string;
     name: string;
@@ -7,5 +9,6 @@ export class Product {
     active: boolean;
     unitsInStock: number;
     dateCreated: Date;
-    lastUpdated: Date;    
+    lastUpdated: Date;  
+    id: string;  
 };

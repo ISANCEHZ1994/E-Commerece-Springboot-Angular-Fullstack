@@ -19,4 +19,5 @@ public interface ProductRepository extends JpaRepository< Product, Long > {
 	
 	// think of the work that this done above like (name):
 	// SELECT * FROM Product p WHERE p.name LIKE CONCAT('%', :name, '%');
+	
 };
