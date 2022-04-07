@@ -2073,3 +2073,18 @@ org.eclipse.ecf.filetransfer.BrowseFileTransferException: HttpComponents connect
 
 !ENTRY org.eclipse.equinox.p2.repository 2 0 2022-04-07 08:17:44.674
 !MESSAGE Using unsafe http transport to retrieve http://downloads.genuitec.com/downloads/products/devstyle/updates/ds20210526, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-04-07 16:53:19.811
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.rKYTDKDx
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-04-07 16:53:19.812
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.rKYTDKDx
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-04-07 16:53:19.812
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-04-07 16:53:19.812
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.rKYTDKDx => OK
+
+!ENTRY org.eclipse.ui 2 2 2022-04-07 16:53:20.086
+!MESSAGE Invalid property category path: org.springframework.ide.eclipse.beans.ui.properties.ProjectPropertyPage (bundle: org.springframework.ide.eclipse.xml.namespaces, propertyPage: org.springframework.ide.eclipse.beans.ui.namespaces.projectPropertyPage)

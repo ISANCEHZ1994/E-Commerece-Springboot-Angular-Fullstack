@@ -19,8 +19,8 @@ export class CheckoutComponent implements OnInit {
   creditCardMonths: number[] = [];
 
   constructor( 
-    private formBuilder: FormBuilder, 
-    private l2FormService: Luv2ShopFormService
+    private formBuilder:    FormBuilder, 
+    private l2FormService:  Luv2ShopFormService
   ) { };
 
   ngOnInit() {
@@ -52,7 +52,7 @@ export class CheckoutComponent implements OnInit {
         expirationMonth: [''],
         expirationYear: ['']
       })
-    })
+    });
 
     // populate credit card months
     const startMonth: number = new Date().getMonth() + 1;
@@ -65,7 +65,7 @@ export class CheckoutComponent implements OnInit {
       }
     );
 
-    // populate credit card years
+    // populate credit card years 
     this.l2FormService.getCreditCardYears().subscribe(
       data => {
           console.log("Retrieved credit card years: " + JSON.stringify(data));
@@ -94,6 +94,30 @@ export class CheckoutComponent implements OnInit {
     };
   };
 
+  handleMonthsAndYears(){
 
+    const creditCardFormGroup  = this.checkoutFormGroup.get('creditCard');
+
+    const currentYear:  number = new Date().getFullYear();
+    const selectedYear: number = Number( creditCardFormGroup.value.expirationYear );
+
+    // if the current year equals the selected year, then start with current month
+
+    let startMonth: number;
+
+    if( currentYear === selectedYear ){
+      startMonth = new Date().getMonth() + 1;
+    } else{
+      startMonth = 1;
+    };
+
+    this.l2FormService.getCreditCardMonths( startMonth ).subscribe(
+        data => {
+          console.log("Retrieved credit card months: " + JSON.stringify(data));
+          this.creditCardMonths = data;
+        }
+    );
+
+  };
 
 };
