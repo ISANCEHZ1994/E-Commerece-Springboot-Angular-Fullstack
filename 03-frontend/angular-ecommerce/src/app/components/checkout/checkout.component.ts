@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Country } from 'src/app/common/country';
+import { State } from 'src/app/common/state';
 import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
 
 @Component({
@@ -17,6 +19,11 @@ export class CheckoutComponent implements OnInit {
   // since we are using luv2ShopService
   creditCardYears: number[] = [];
   creditCardMonths: number[] = [];
+
+  countries: Country[] = [];
+
+  shippingAddressStates:  State[] = [];
+  billingAddressStates:   State[] = [];
 
   constructor( 
     private formBuilder:    FormBuilder, 
@@ -53,7 +60,6 @@ export class CheckoutComponent implements OnInit {
         expirationYear: ['']
       })
     });
-
     // populate credit card months
     const startMonth: number = new Date().getMonth() + 1;
     console.log("startMonth: " + startMonth);
@@ -73,6 +79,12 @@ export class CheckoutComponent implements OnInit {
       }
     );
 
+    this.l2FormService.getCountries().subscribe(
+      data => {
+            console.log("Retrieved Countries: " + JSON.stringify(data));
+            this.countries = data;
+      }
+    );
 
   };
 
@@ -118,6 +130,29 @@ export class CheckoutComponent implements OnInit {
         }
     );
 
+  };
+
+  getStates( formGroupName: string ){
+    const formGroup = this.checkoutFormGroup.get(formGroupName);
+
+    const countryCode = formGroup.value.country.code;
+    const countryName = formGroup.value.country.name;
+
+    console.log(`${ formGroupName } country code: ${ countryCode }` )
+    console.log(`${ formGroupName } country name: ${ countryName }` )
+
+    this.l2FormService.getStates(countryCode).subscribe(
+      data => {
+          if(formGroupName === 'shippingAddress'){
+              this.shippingAddressStates = data;
+          } else {
+              this.billingAddressStates = data
+          }
+
+          // select first item by default
+          formGroup.get('state').setValue(data[0]);
+      }
+    );
   };
 
 };

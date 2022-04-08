@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 
+import com.luv2code.ecommerce.entity.Country;
 import com.luv2code.ecommerce.entity.Product;
 import com.luv2code.ecommerce.entity.ProductCategory;
+import com.luv2code.ecommerce.entity.State;
 
 import java.util.*;
 
@@ -31,24 +33,33 @@ public class MyDataRestConfig implements RepositoryRestConfigurer{
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
 		
 		HttpMethod[] theUnsupportedActions = { HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE };
+	
+		// NOTE: the method below was made easier by creating the disableHttpMethods method - work organized
 		
-		// disable HTTP methods for PRODUCT: PUT, POST, and DELETE
-		config.getExposureConfiguration()
-			  .forDomainType(Product.class) 
-			  // -> Java Lambda Syntax for the arrow symbol ->
-			  .withItemExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions ))		 // Single Item
-			  .withCollectionExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions )); // Collection
-		
-		// disable HTTP methods for PRODUCTCATEGORY: PUT, POST, and DELETE
-		config.getExposureConfiguration()
-			  .forDomainType(ProductCategory.class) 
-			  .withItemExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions ))
-			  .withCollectionExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions )); 
+		// disable HTTP methods for PRODUCT: PUT, POST, and DELETE		
+		//	config.getExposureConfiguration()
+		//	.forDomainType(Product.class) // <= here we are using the product class!
+		//			// -> Java Lambda Syntax for the arrow symbol ->
+		//	.withItemExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions ))		 // Single Item
+		//	.withCollectionExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions )); // Collection
+
+		// now we have cleaner code for all models/entities
+		disableHttpMethods(Product.class, 			config, theUnsupportedActions);
+		disableHttpMethods(ProductCategory.class, 	config, theUnsupportedActions);
+		disableHttpMethods(Country.class, 			config, theUnsupportedActions);
+		disableHttpMethods(State.class, 			config, theUnsupportedActions);
 		
 		// call an internal helper method
 		exposeIds(config);
 		
 		RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
+	};
+
+	private void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] theUnsupportedActions) {
+		config.getExposureConfiguration()
+			  .forDomainType(theClass) 
+			  .withItemExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions ))
+			  .withCollectionExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions ));
 	};
 	
 	// created exposeIds() so that when we go to http://localhost:8080/api/product-category
