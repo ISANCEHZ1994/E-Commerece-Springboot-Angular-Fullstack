@@ -1,10 +1,10 @@
 import { Observable, of } from 'rxjs';
 import { Injectable }     from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Country } from '../common/country';
-import { State } from '../common/state';
+import { Country }    from '../common/country';
+import { State }      from '../common/state';
 import { GetResponseCountries } from '../interfaces/get-response-countries'; 
-import { GetResponseStates } from '../interfaces/get-response-states'; 
+import { GetResponseStates }    from '../interfaces/get-response-states'; 
 import { map } from 'rxjs';
 
 
@@ -13,7 +13,7 @@ import { map } from 'rxjs';
 })
 export class Luv2ShopFormService {  
 
-  private countiresURL = 'http://localhost:8080/api/countries';
+  private countriesURL = 'http://localhost:8080/api/countries';
   private statesURL = "http://localhost:8080/api/states";
 
   constructor( private httpClient: HttpClient ) { };
@@ -42,15 +42,15 @@ export class Luv2ShopFormService {
     const endYear: number = startYear + 10;
 
     for( let theYear = startYear; theYear <= endYear; theYear++ ){
-      data.push(theYear);
+      data.push( theYear );
     };
 
-    return of(data);
+    return of( data );
 
   };
 
   getCountries(): Observable<Country[]>{
-    return this.httpClient.get<GetResponseCountries>(this.countiresURL).pipe(
+    return this.httpClient.get<GetResponseCountries>(this.countriesURL).pipe(
       map(response => response._embedded.countries)
     );
   };

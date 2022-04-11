@@ -1,7 +1,7 @@
 <div class="main-content page-m">
     <div class="section-content section-content-p30">
          <div class="container-fluid">
-
+ 
             <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
                 <!-- customer from group -->
                 <div formGroupName="customer" class="form-area">
@@ -12,15 +12,40 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="firstName" type="text">
+                                <!-- inside of div below -->
+                                <!-- invalid:   did validations fail?        -->
+                                <!-- dirty:     did user change field value? -->
+                                <!-- touched:   did field lose focus?        -->
+                                <div 
+                                    *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                                    class="alert alert-danger mt-1"
+                                >
+                                    <div *ngIf="firstName.errors.required || firstName.errors.notOnlyWhitespace">
+                                        First Name is REQUIRED
+                                    </div>
+                                    <div *ngIf="firstName.errors.minlength" >
+                                        First Name must be AT LEAST 2 characters long..
+                                    </div>
+                                </div>
                             </div>
-                        </div>                        
+                        </div>  
                     </div>
-
                     <div class="row">
                         <div class="col-md-2"><label>Last Name</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="lastName" type="text">
+                                <div 
+                                    *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                                    class="alert alert-danger mt-1"
+                                >
+                                    <div *ngIf="lastName.errors.required || lastName.errors.notOnlyWhitespace">
+                                        Last Name is REQUIRED
+                                    </div>
+                                    <div *ngIf="lastName.errors.minlength">
+                                        Last Name must be AT LEAST 2 characters long..
+                                    </div>
+                                </div>
                             </div>
                         </div>                        
                     </div>
@@ -29,11 +54,21 @@
                         <div class="col-md-2"><label>Email</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                 <input formControlName="email" type="text">
+                                <input formControlName="email" type="text">
+                                <div 
+                                    *ngIf="email.invalid && (email.dirty || email.touched)"
+                                    class="alert alert-danger mt-1"
+                                >
+                                    <div *ngIf="email.errors.required || email.errors.notOnlyWhitespace">
+                                        Email Name is REQUIRED
+                                    </div>
+                                    <div *ngIf="email.errors.pattern">
+                                        Email MUST be a vaild email address format..
+                                    </div>
+                                </div>
                             </div>
                         </div>                       
                     </div>
-
                 </div>     
 
                 <!-- Shipping Address -->
@@ -49,7 +84,7 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>                        
+                        </div> 
                     </div>
                     <div class="row">
                         <div class="col-md-2"><label>Street</label></div>
@@ -104,7 +139,7 @@
                         <div class="col-md-2"><label>Country</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="country">
+                                <select formControlName="country" (change)="getStates('billingAddress')">
                                     <option *ngFor="let country of countries" [ngValue]="country">
                                         {{ country.name }}
                                     </option>
@@ -133,7 +168,9 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                  <select formControlName="state">
-                                    <option>TO DO</option>
+                                    <option *ngFor="let state of billingAddressStates" [ngValue]="state">
+                                        {{ state.name }}
+                                    </option>
                                  </select>
                             </div>
                         </div>                       

@@ -2993,3 +2993,4 @@ org.eclipse.core.runtime.CoreException: Launch configuration SpringBootEcommerce
 2022-04-08 13:00:09,028 [Worker-139: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2022-04-08 13:00:09,028 [Worker-139: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
 2022-04-08 13:00:09,028 [Worker-139: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\isanchez\Desktop\Practice\E-Commerce Site\02-backend\spring-boot-ecommerce\src\test\resources
+2022-04-11 08:27:07,396 [Worker-7: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
