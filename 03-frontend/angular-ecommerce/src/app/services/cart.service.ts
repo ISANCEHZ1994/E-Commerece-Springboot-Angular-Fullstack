@@ -1,16 +1,29 @@
 import { Injectable } from "@angular/core";
 import { CartItem } from "../common/cart-item";
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
+
+// Subject:
+//      - Does not keep a buffer of previous events
+//      - Subscriber only receives new events after they are subscribed
+
+// ReplaySubject:
+//      - Has a buffer of all previous events
+//      - Once subscribed, subscriber receives a replay of all previous events
+
+// BehaviorSubject:
+//      - Has a buffer of the last event
+//      - Once subscribed, subcriber recieves the latest event sent prior to subscribing
 
 @Injectable({
     providedIn: 'root'
-})
+}) 
 export class CartService {
 
     cartItems: CartItem[] = [];
 
-    totalPrice:     Subject<number> = new Subject<number>();
-    totalQuantity:  Subject<number> = new Subject<number>();
+    //  remember: BehaviorSubject is a SUBCLASS of Subject
+    totalPrice:     Subject<number> = new BehaviorSubject<number>(0);
+    totalQuantity:  Subject<number> = new BehaviorSubject<number>(0);
 
     constructor(){ };
 
@@ -42,8 +55,8 @@ export class CartService {
         let totalQuantityValue: number = 0;
 
         for( let currentCartItem of this.cartItems ){
-            totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
-            totalQuantityValue += currentCartItem.quantity;
+            totalPriceValue     += currentCartItem.quantity * currentCartItem.unitPrice;
+            totalQuantityValue  += currentCartItem.quantity;
         };
         // publish the new values - all subscribers will receive the new data
         this.totalPrice.next(totalPriceValue);
