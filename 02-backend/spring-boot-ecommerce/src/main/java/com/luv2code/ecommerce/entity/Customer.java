@@ -3,6 +3,8 @@ package com.luv2code.ecommerce.entity;
 import javax.persistence.*;
 import lombok.*;
 
+import java.util.*;
+
 @Entity
 @Table( name = "customer" )
 @Getter
@@ -21,7 +23,23 @@ public class Customer {
 	private String lastName;
 	
 	@Column( name = "email" )
-	private String email;
+	private String email;	
+	
+	// A customer can have zero to MANY orders!
+	@OneToMany( mappedBy = "customer", cascade = CascadeType.ALL )	
+	private Set<Order> orders = new HashSet<>();
+	
+	public void add(Order order) {
+		
+		if( order != null ) {
+			
+			if( orders == null ) {
+				orders = new HashSet<>();				
+			}
+			orders.add(order);
+			order.setCustomer(this);
+		};
+	};
 	
 
 };
