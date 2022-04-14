@@ -222,13 +222,32 @@ export class CheckoutComponent implements OnInit {
     purchase.orderItem  = orderItems;
 
     // call REST API via the CheckoutService
-    this.checkoutService.placeOrder( purchase ).subscribe(
-
-    );
+    this.checkoutService.placeOrder( purchase ).subscribe({
+        next: response => { 
+          alert(`Your order has been received! \nOrder tracking number: ${ response.orderTrackingNumber }`);
+          this.resetCart();
+        },
+        error: err => {
+          alert(`There was an error: ${ err.message } when placing your order`);
+        }       
+    });
 
   };
 
-  // GETTERS 
+  resetCart(){
+    // reset cart data
+    this.cartService.cartItems = [];
+    this.cartService.totalPrice.next(0);
+    this.cartService.totalQuantity.next(0);
+
+    // reset the form
+    this.checkoutFormGroup.reset();
+
+    // navigate back to the products page
+    this.router.navigateByUrl("/products");
+  };
+
+  // ========================= [ GETTERS ] ======================= 
   get firstName(){ return this.checkoutFormGroup.get('customer.firstName')};
   get lastName(){  return this.checkoutFormGroup.get('customer.lastName')};
   get email(){     return this.checkoutFormGroup.get('customer.email')};
@@ -245,9 +264,9 @@ export class CheckoutComponent implements OnInit {
   get billingZipCode(){ return this.checkoutFormGroup.get('billingAddress.zipCode')};
   get billingCountry(){ return this.checkoutFormGroup.get('billingAddress.country')};
 
-  get creditCardType(){   return this.checkoutFormGroup.get('creditCard.cardType')};
-  get creditNameOnCard(){ return this.checkoutFormGroup.get('creditCard.nameOnCard')};
-  get creditCardNumber(){ return this.checkoutFormGroup.get('creditCard.cardNumber')};
+  get creditCardType(){     return this.checkoutFormGroup.get('creditCard.cardType')};
+  get creditNameOnCard(){   return this.checkoutFormGroup.get('creditCard.nameOnCard')};
+  get creditCardNumber(){   return this.checkoutFormGroup.get('creditCard.cardNumber')};
   get creditSecurityCode(){ return this.checkoutFormGroup.get('creditCard.securityCode')};
 
   sameAsShipping(event){
