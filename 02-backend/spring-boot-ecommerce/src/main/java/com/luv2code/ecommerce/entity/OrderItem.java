@@ -1,7 +1,9 @@
 package com.luv2code.ecommerce.entity;
 
 import lombok.*;
+
 import javax.persistence.*;
+
 import java.math.*;
 
 @Entity
@@ -20,7 +22,7 @@ public class OrderItem {
 	
 	@Column( name = "unit_price" )
 	private BigDecimal unitPrice;
-
+	
 	@Column( name = "quantity" )
 	private int quantity;
 	
@@ -30,5 +32,6 @@ public class OrderItem {
 	@ManyToOne
 	@JoinColumn( name = "order_id" )
 	private Order order;
+	
 	
 };

@@ -39,7 +39,7 @@ public class Order {
 	@Column( name = "last_updated" )
 	@UpdateTimestamp
 	private Date lastUpdated;
-		
+	
 	// An order has a collection of ORDERITEMS
 	@OneToMany( cascade = CascadeType.ALL, mappedBy = "order" )
 	private Set<OrderItem> orderItems = new HashSet<>();
@@ -57,7 +57,7 @@ public class Order {
 	@JoinColumn( name = "billing_address_id", referencedColumnName = "id" )
 	private Address billingAddress;
 	
-	// convience method for adding order items to the given order	
+	// convenience method for adding order items to the given order	
 	public void add( OrderItem item ) {
 		
 		if( item != null ) {

@@ -1,6 +1,7 @@
 package com.luv2code.ecommerce.entity;
 
 import lombok.*;
+
 import javax.persistence.*;
 
 @Entity

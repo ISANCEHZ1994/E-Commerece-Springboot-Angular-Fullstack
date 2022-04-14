@@ -1,12 +1,16 @@
 package com.luv2code.ecommerce.service;
 
+import java.util.UUID;
+
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luv2code.ecommerce.dao.CustomerRepository;
 import com.luv2code.ecommerce.dto.*;
 import com.luv2code.ecommerce.entity.*;
+import java.util.*;
 
 // now with all the models created as well as repository
 
@@ -17,8 +21,9 @@ public class CheckoutServiceImpl implements CheckoutService {
 	
 	private CustomerRepository customerRepository;
 	
-	public CheckoutServiceImpl( CustomerRepository customerRepository ) {
-		this.customerRepository = customerRepository;
+	@Autowired
+	public CheckoutServiceImpl( CustomerRepository cr ) {
+		this.customerRepository = cr;
 	};
 
 	@Override
@@ -30,23 +35,33 @@ public class CheckoutServiceImpl implements CheckoutService {
 		
 		// generate tracking number
 		String orderTrackingNumber = generateOrderTrackingNumber();
-		order.setOrderTrackingNumber(orderTrackingNumber);
+		order.setOrderTrackingNumber( orderTrackingNumber );
 		
 		// populate order with orderItems
+		Set<OrderItem> orderItems = purchase.getOrderItems();
+		orderItems.forEach(item -> order.add(item));
 		
 		// populate order with billingAddress and shippingAddress
+		order.setBillingAddress(  purchase.getBillingAddress() );
+		order.setShippingAddress( purchase.getShippingAddress() );
 		
 		// populate customer with order
+		Customer customer = purchase.getCustomer();
+		customer.add( order );
 		
 		// save to the database
+		customerRepository.save( customer );
 		
 		// return a response 
-		return null;
+		return new PurchaseResponse(orderTrackingNumber);
 	};
 
-	private String generateOrderTrackingNumber() {
-		// TODO Auto-generated method stub
-		return null;
+	private String generateOrderTrackingNumber() {		
+		// generate a random UUID number (UUID version-4)
+		// UUID: Universally Unique IDentifier
+		// 	- Standardized methods for generating unique IDs
+				
+		return UUID.randomUUID().toString();		
 	};
 	
 	
