@@ -11,6 +11,6 @@ export class OrderItem {
         this.quantity  = cartItem.quantity;
         this.unitPrice = cartItem.unitPrice;
         this.productId = cartItem.id;
-    };
+    };  
 
 };

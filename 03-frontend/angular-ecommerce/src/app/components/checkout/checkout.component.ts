@@ -187,11 +187,11 @@ export class CheckoutComponent implements OnInit {
     };
 
     // set up order
-    let order = new Order();
+    let order = new Order();  
     order.totalPrice =    this.totalPrice;
     order.totalQuantity = this.totalQuantity;
 
-    // get cart items
+    // get cart items  
     const cartItems = this.cartService.cartItems;    
 
     // create orderItems from cartItems    
@@ -222,6 +222,9 @@ export class CheckoutComponent implements OnInit {
     purchase.orderItem  = orderItems;
 
     // call REST API via the CheckoutService
+    this.checkoutService.placeOrder( purchase ).subscribe(
+
+    );
 
   };
 
