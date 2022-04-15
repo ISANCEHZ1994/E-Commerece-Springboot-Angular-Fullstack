@@ -63,7 +63,7 @@ public class Order {
 		if( item != null ) {
 			if( orderItems == null ) {
 				orderItems = new HashSet<>();
-			};
+			}
 			orderItems.add(item);
 			item.setOrder(this); // lombok helps/reference is in OrderItem - Order order
 		};		

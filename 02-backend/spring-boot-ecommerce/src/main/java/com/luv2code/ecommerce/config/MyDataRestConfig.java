@@ -52,7 +52,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer{
 		// call an internal helper method
 		exposeIds(config);
 		
-//		RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
+		RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
 	};
 
 	private void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] theUnsupportedActions) {
