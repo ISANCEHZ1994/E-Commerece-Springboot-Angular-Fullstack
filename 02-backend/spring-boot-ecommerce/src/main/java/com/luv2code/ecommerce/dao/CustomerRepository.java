@@ -8,7 +8,6 @@ import com.luv2code.ecommerce.entity.Customer;
 // when a purchase we grab the customer, assemble it accordingly and then save the customer using this repository
 public interface CustomerRepository extends JpaRepository<Customer, Long>{
 
-	// we need to create our service package => CheckoutService
-	
+	// we need to create our service package => CheckoutService	
 	
 };

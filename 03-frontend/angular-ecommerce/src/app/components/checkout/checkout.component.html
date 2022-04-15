@@ -59,11 +59,12 @@
                                     *ngIf="email.invalid && (email.dirty || email.touched)"
                                     class="alert alert-danger mt-1"
                                 >
-                                    <div *ngIf="email.errors.required || email.errors.notOnlyWhitespace">
+                                    <div *ngIf="email.errors.required">
                                         Email Name is REQUIRED
                                     </div>
                                     <div *ngIf="email.errors.pattern">
                                         Email MUST be a vaild email address format..
+                                        <div>Try lowercase?</div>
                                     </div>
                                 </div>
                             </div>

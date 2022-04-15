@@ -1,15 +1,14 @@
 package com.luv2code.ecommerce.service;
 
-import java.util.UUID;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.luv2code.ecommerce.dao.CustomerRepository;
+import com.luv2code.ecommerce.dao.*;
 import com.luv2code.ecommerce.dto.*;
 import com.luv2code.ecommerce.entity.*;
+
 import java.util.*;
 
 // now with all the models created as well as repository
@@ -22,8 +21,8 @@ public class CheckoutServiceImpl implements CheckoutService {
 	private CustomerRepository customerRepository;
 	
 	@Autowired
-	public CheckoutServiceImpl( CustomerRepository cr ) {
-		this.customerRepository = cr;
+	public CheckoutServiceImpl( CustomerRepository customerRepository ) {
+		this.customerRepository = customerRepository;
 	};
 
 	@Override

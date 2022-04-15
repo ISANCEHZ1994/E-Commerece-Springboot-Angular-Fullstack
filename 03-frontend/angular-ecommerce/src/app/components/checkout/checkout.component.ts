@@ -60,10 +60,11 @@ export class CheckoutComponent implements OnInit {
         email: new FormControl('',
             [ 
               Validators.required, 
+              // NOTE: email all needs to be lowercase!
               Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
             ]
         )
-      }),
+      }), 
       shippingAddress: this.formBuilder.group({
         country: new FormControl('', 
           [ Validators.required ]

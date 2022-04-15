@@ -14,8 +14,8 @@ public class CheckoutController {
 	
 	private CheckoutService checkoutService;
 	
-	public CheckoutController( CheckoutService cs ) {
-		this.checkoutService = cs;
+	public CheckoutController( CheckoutService checkoutService ) {
+		this.checkoutService = checkoutService;
 	};
 	
 	@PostMapping("/purchase")
