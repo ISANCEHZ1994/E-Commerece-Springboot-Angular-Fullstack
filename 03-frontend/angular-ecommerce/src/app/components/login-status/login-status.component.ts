@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OktaAuthStateService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-login-status',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginStatusComponent implements OnInit {
 
-  constructor() { }
+  constructor() { };
 
   ngOnInit(): void {
-  }
+    
+  };
 
-}
+};
