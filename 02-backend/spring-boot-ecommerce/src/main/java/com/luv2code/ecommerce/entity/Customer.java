@@ -38,7 +38,7 @@ public class Customer {
 			}
 			orders.add(order);
 			order.setCustomer(this);
-		};
+		}
 	};
 	
 

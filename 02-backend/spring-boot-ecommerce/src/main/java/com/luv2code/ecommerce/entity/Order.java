@@ -66,7 +66,7 @@ public class Order {
 			}
 			orderItems.add(item);
 			item.setOrder(this); // lombok helps/reference is in OrderItem - Order order
-		};		
+		}		
 	};
 	
 	

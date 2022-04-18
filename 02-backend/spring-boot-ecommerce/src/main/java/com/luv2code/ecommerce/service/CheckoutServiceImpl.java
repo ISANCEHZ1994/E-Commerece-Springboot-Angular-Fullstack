@@ -44,15 +44,15 @@ public class CheckoutServiceImpl implements CheckoutService {
 		
 		// populate order with orderItems
 		Set<OrderItem> orderItems = purchase.getOrderItems();
-		System.out.println(orderItems + " orderItems declared first");
+//		System.out.println(orderItems + " orderItems declared first");
 		
 		orderItems.forEach(item -> order.add(item));
-		System.out.println(orderItems + " maybe a change?");
+//		System.out.println(orderItems + " maybe a change?");
 		// populate order with billingAddress and shippingAddress
 		order.setBillingAddress(  purchase.getBillingAddress() );
 		order.setShippingAddress( purchase.getShippingAddress() );
 		
-		System.out.println(order + " this should be the order..");
+//		System.out.println(order + " this should be the order..");
 		// populate customer with order
 		Customer customer = purchase.getCustomer();
 		customer.add( order );
