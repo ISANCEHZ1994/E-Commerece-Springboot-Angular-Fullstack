@@ -42,4 +42,5 @@
     <fullyQualifiedTypeName name="com.luv2code.ecommerce.service.CheckoutService"/>
     <fullyQualifiedTypeName name="com.luv2code.ecommerce.dto.Purchase"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.luv2code.ecommerce.entity.OrderItem"/>
 </qualifiedTypeNameHistroy>

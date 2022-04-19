@@ -1,10 +1,29 @@
 import { NgModule }             from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Router } from '@angular/router';
 import { HttpClientModule }     from '@angular/common/http';
 import { BrowserModule }        from '@angular/platform-browser';
 import { NgbModule }            from '@ng-bootstrap/ng-bootstrap';
-import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
 import { ReactiveFormsModule }     from '@angular/forms';
+
+import { 
+  OktaAuthModule, 
+  OKTA_CONFIG, 
+  OktaCallbackComponent 
+} from '@okta/okta-angular';
+
+import { OktaAuth } from '@okta/okta-auth-js';
+
+import myAppConfig from './config/my-app-config';
+
+const oktaConfig = Object.assign({
+    onAuthRequired: ( injector ) => {
+
+      const router = injector.get(Router);
+      // Redirect the user to your custom login page
+      router.navigate(['/login']);
+
+    }
+}, myAppConfig.oidc );
 
 import { AppComponent }         from './app.component';
 import { ProductService }       from './services/product.service';
@@ -18,9 +37,13 @@ import { CheckoutComponent }       from './components/checkout/checkout.componen
 import { LoginComponent }          from './components/login/login.component';
 import { LoginStatusComponent }    from './components/login-status/login-status.component';
 
-// import { Luv2ShopValidatorsComponent } from './validators/luv2-shop-validators/luv2-shop-validators.component';
+const oktaAuth = new OktaAuth(oktaConfig);
 
 const routes: Routes = [
+    // https://manage.auth0.com/dashboard/us/dev-neex6mmz/applications/NxDLKox3ItnE6JEFpuOcnVDY6a3pJYu0/settings
+    { path: 'login/callback', component: OktaCallbackComponent },
+    { path: 'login',          component: LoginComponent },
+
     { path: 'checkout',           component: CheckoutComponent },
     { path: 'cart-details',       component: CartDetailsComponent },
     { path: 'products/:id',       component: ProductDetailsComponent },
@@ -45,8 +68,6 @@ const routes: Routes = [
     CheckoutComponent,
     LoginComponent,
     LoginStatusComponent,
-    
-    // ProductListTableComponent
   ],
   imports: [
     RouterModule.forRoot( routes ),
@@ -58,9 +79,10 @@ const routes: Routes = [
   ],
   providers: [
     ProductService,
-    // { 
-    //   provide: OKTA_CONFIG
-    // }
+    { 
+      provide: OKTA_CONFIG, 
+      useValue: { oktaAuth } 
+    }
   ],
   bootstrap: [AppComponent]
 })
