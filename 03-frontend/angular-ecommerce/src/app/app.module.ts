@@ -15,6 +15,7 @@ import { CartDetailsComponent }    from './components/cart-details/cart-details.
 import { CheckoutComponent }       from './components/checkout/checkout.component';
 import { LoginComponent }          from './components/login/login.component';
 import { LoginStatusComponent }    from './components/login-status/login-status.component';
+import { MembersPageComponent }    from './components/members-page/members-page.component';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 
 import { 
@@ -26,6 +27,8 @@ import {
 
 import { OktaAuth } from '@okta/okta-auth-js';
 import myAppConfig  from './config/my-app-config';
+
+
 
 const oktaConfig = Object.assign({
     onAuthRequired: ( injector ) => {
@@ -46,7 +49,9 @@ const routes: Routes = [
     // https://dev-31079651-admin.okta.com/admin/app/oidc_client/client/0oa4qxxxsdmp89wKH5d7#tab-general
     { path: 'login/callback', component: OktaCallbackComponent },
     { path: 'login',          component: LoginComponent },
-    // { path: 'members',        component: MembersPageComponent, canActivate: [ OktaAuthGuard ]},
+
+    // <canActivate> Route Guard: if authenticated give access to route else, send to login page
+    { path: 'members',        component: MembersPageComponent, canActivate: [ OktaAuthGuard ]},
 
     { path: 'checkout',           component: CheckoutComponent },
     { path: 'cart-details',       component: CartDetailsComponent },
@@ -72,6 +77,7 @@ const routes: Routes = [
     CheckoutComponent,
     LoginComponent,
     LoginStatusComponent,
+    MembersPageComponent,
   ],
   imports: [
     RouterModule.forRoot( routes ),
