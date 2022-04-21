@@ -4,7 +4,6 @@ import { HttpClientModule }     from '@angular/common/http';
 import { BrowserModule }        from '@angular/platform-browser';
 import { NgbModule }            from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule }  from '@angular/forms';
-
 import { AppComponent }         from './app.component';
 import { ProductService }       from './services/product.service';
 import { SearchComponent }      from './components/search/search.component';
@@ -28,19 +27,15 @@ import {
 import { OktaAuth } from '@okta/okta-auth-js';
 import myAppConfig  from './config/my-app-config';
 
-
-
 const oktaConfig = Object.assign({
-    onAuthRequired: ( injector ) => {
 
+    onAuthRequired: ( oktaAuth, injector ) => {
       const router = injector.get(Router);
       // Redirect the user to your custom login page
       router.navigate(['/login']);
-
     }
+
 }, myAppConfig.oidc );
-
-
 
 const oktaAuth = new OktaAuth(oktaConfig);
 

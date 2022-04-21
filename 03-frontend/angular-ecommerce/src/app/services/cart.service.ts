@@ -25,7 +25,22 @@ export class CartService {
     totalPrice:     Subject<number> = new BehaviorSubject<number>(0);
     totalQuantity:  Subject<number> = new BehaviorSubject<number>(0);
 
-    constructor(){ };
+    // so that we can save the items in the cart even if refresh
+    storage: Storage = localStorage; // Reference to web browser's session storage
+    // sessionStorage: once a web broswer tab is closed then data is no longer available 
+    // swtiched to localStorage instead of sessionStorage
+    // now if we close tab - items in cart are still there
+
+    constructor(){ 
+        // read data from storage - so items can be 'saved' instead of losing with refresh..
+        let data = JSON.parse( this.storage.getItem('cartItems')); 
+
+        if( data != null ){
+            this.cartItems = data;
+            // compute totals based on the data that is read from storage
+            this.computeCartTotals();
+        };
+    };
 
     addToCart( theCartItem: CartItem ){
         // check if we already have the item in our cart
@@ -48,6 +63,9 @@ export class CartService {
         }; 
         // compute cart total price and total quantity
         this.computeCartTotals();
+
+        // persist cart data - that we set up 
+        this.persistCartItems();
     };
 
     computeCartTotals(){
@@ -72,9 +90,9 @@ export class CartService {
             const subTotalPrice = tempCartItem.quantity * tempCartItem.unitPrice;
             console.log(`
                 name:           ${ tempCartItem.name }, 
-                quantity=       ${ tempCartItem.quantity }, 
-                unitPrice=      ${ tempCartItem.unitPrice },
-                subTotalPrice=  ${ subTotalPrice }
+                quantity =       ${ tempCartItem.quantity }, 
+                unitPrice =      ${ tempCartItem.unitPrice },
+                subTotalPrice =  ${ subTotalPrice }
             `);
         };
         console.log(`
@@ -105,6 +123,10 @@ export class CartService {
             this.cartItems.splice( itemIndex, 1 );
             this.computeCartTotals();
         };
+    };
+
+    persistCartItems(){  // key: cartItems, value: this.cartItems
+        this.storage.setItem( 'cartItems', JSON.stringify(this.cartItems) );
     };
 
 };
