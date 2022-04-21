@@ -1,11 +1,12 @@
 export default {
     // https://manage.auth0.com/dashboard/us/dev-neex6mmz/applications/NxDLKox3ItnE6JEFpuOcnVDY6a3pJYu0/settings
     // https://login.okta.com/
-    // https://developer.okta.com/
+    // https://developer.okta.com/login/
+    // https://dev-18207900-admin.okta.com/admin/getting-started
 
     oidc: {
-        clientId:       'NxDLKox3ItnE6JEFpuOcnVDY6a3pJYu0',
-        issuer:         'https://dev-neex6mmz.us.auth0.com/oauth2/default',        
+        clientId:       '0oa4r47f60ougeK5Z5d7',
+        issuer:         'https://dev-18207900.okta.com/oauth2/default',        
         redirectUri:    'http://localhost:4200/login/callback',
         // Scopes provide access to information about user
         scopes:         [

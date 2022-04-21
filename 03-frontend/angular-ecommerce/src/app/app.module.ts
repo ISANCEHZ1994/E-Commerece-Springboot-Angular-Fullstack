@@ -3,17 +3,29 @@ import { Routes, RouterModule, Router } from '@angular/router';
 import { HttpClientModule }     from '@angular/common/http';
 import { BrowserModule }        from '@angular/platform-browser';
 import { NgbModule }            from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule }     from '@angular/forms';
+import { ReactiveFormsModule }  from '@angular/forms';
+
+import { AppComponent }         from './app.component';
+import { ProductService }       from './services/product.service';
+import { SearchComponent }      from './components/search/search.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { CartStatusComponent }     from './components/cart-status/cart-status.component';
+import { CartDetailsComponent }    from './components/cart-details/cart-details.component';
+import { CheckoutComponent }       from './components/checkout/checkout.component';
+import { LoginComponent }          from './components/login/login.component';
+import { LoginStatusComponent }    from './components/login-status/login-status.component';
+import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 
 import { 
   OktaAuthModule, 
   OKTA_CONFIG, 
-  OktaCallbackComponent 
+  OktaCallbackComponent, 
+  OktaAuthGuard
 } from '@okta/okta-angular';
 
 import { OktaAuth } from '@okta/okta-auth-js';
-
-import myAppConfig from './config/my-app-config';
+import myAppConfig  from './config/my-app-config';
 
 const oktaConfig = Object.assign({
     onAuthRequired: ( injector ) => {
@@ -25,24 +37,16 @@ const oktaConfig = Object.assign({
     }
 }, myAppConfig.oidc );
 
-import { AppComponent }         from './app.component';
-import { ProductService }       from './services/product.service';
-import { SearchComponent }      from './components/search/search.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { CartStatusComponent }     from './components/cart-status/cart-status.component';
-import { CartDetailsComponent }    from './components/cart-details/cart-details.component';
-import { CheckoutComponent }       from './components/checkout/checkout.component';
-import { LoginComponent }          from './components/login/login.component';
-import { LoginStatusComponent }    from './components/login-status/login-status.component';
+
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
 const routes: Routes = [
     // https://manage.auth0.com/dashboard/us/dev-neex6mmz/applications/NxDLKox3ItnE6JEFpuOcnVDY6a3pJYu0/settings
+    // https://dev-31079651-admin.okta.com/admin/app/oidc_client/client/0oa4qxxxsdmp89wKH5d7#tab-general
     { path: 'login/callback', component: OktaCallbackComponent },
     { path: 'login',          component: LoginComponent },
+    // { path: 'members',        component: MembersPageComponent, canActivate: [ OktaAuthGuard ]},
 
     { path: 'checkout',           component: CheckoutComponent },
     { path: 'cart-details',       component: CartDetailsComponent },
