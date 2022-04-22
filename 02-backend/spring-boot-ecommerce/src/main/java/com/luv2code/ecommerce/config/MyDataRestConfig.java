@@ -3,14 +3,11 @@ package com.luv2code.ecommerce.config;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 
-import com.luv2code.ecommerce.entity.Country;
-import com.luv2code.ecommerce.entity.Product;
-import com.luv2code.ecommerce.entity.ProductCategory;
-import com.luv2code.ecommerce.entity.State;
+import com.luv2code.ecommerce.entity.*;
 
 import java.util.*;
 
@@ -22,17 +19,20 @@ import javax.persistence.metamodel.EntityType;
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer{
 	
-	private EntityManager entityManager;
+	@Value("${allowed.origins}") // will use the reference inside of application.properties
+	private String[] theAllowedOrigins;
+	
+	private EntityManager entityManager;	
 	
 	@Autowired
 	public MyDataRestConfig(EntityManager theEntityManager) {
 		entityManager = theEntityManager;
 	};
-
+	
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
 		
-		HttpMethod[] theUnsupportedActions = { HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE };
+		HttpMethod[] theUnsupportedActions = { HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PATCH };
 	
 		// NOTE: the method below was made easier by creating the disableHttpMethods method - work organized
 		
@@ -40,17 +40,25 @@ public class MyDataRestConfig implements RepositoryRestConfigurer{
 		//	config.getExposureConfiguration()
 		//	.forDomainType(Product.class) // <= here we are using the product class!
 		//			// -> Java Lambda Syntax for the arrow symbol ->
-		//	.withItemExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions ))		 // Single Item
+		//	.withItemExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions ))		   // Single Item
 		//	.withCollectionExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions )); // Collection
 
 		// now we have cleaner code for all models/entities
-		disableHttpMethods(Product.class, 			config, theUnsupportedActions);
-		disableHttpMethods(ProductCategory.class, 	config, theUnsupportedActions);
-		disableHttpMethods(Country.class, 			config, theUnsupportedActions);
-		disableHttpMethods(State.class, 			config, theUnsupportedActions);
+		disableHttpMethods( Product.class, 			config, theUnsupportedActions );
+		disableHttpMethods( ProductCategory.class, 	config, theUnsupportedActions );
+		disableHttpMethods( Country.class, 			config, theUnsupportedActions );
+		disableHttpMethods( State.class, 			config, theUnsupportedActions );
+		disableHttpMethods( Order.class, 			config, theUnsupportedActions );
 		
 		// call an internal helper method
 		exposeIds(config);
+		
+		// configure cors mapping - now that were using this line of code 
+		// the CrossOrigin inside all <dao>Repository.java is no longer needed
+		// cors.addMapping("/api/**").allowedOrigins("http://localhost:4200");
+		
+		// the variable: theAllowedOrigins will represent allowed.origins => http://localhost:4200 inside of the application.properties
+		cors.addMapping(config.getBasePath() + "/**").allowedOrigins(theAllowedOrigins);
 		
 		RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
 	};

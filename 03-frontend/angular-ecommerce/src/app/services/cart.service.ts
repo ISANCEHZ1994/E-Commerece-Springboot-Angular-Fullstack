@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { CartItem } from "../common/cart-item";
-import { Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
-
+import { Subject, BehaviorSubject } from 'rxjs';
 // Subject:
 //      - Does not keep a buffer of previous events
 //      - Subscriber only receives new events after they are subscribed

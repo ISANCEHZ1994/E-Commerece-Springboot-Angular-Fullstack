@@ -7,7 +7,7 @@ import com.luv2code.ecommerce.service.CheckoutService;
 
 // CheckoutController => CheckoutService => Spring Data JPA Repository
 
-@CrossOrigin("http://localhost:4200")
+// @CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/api/checkout")
 public class CheckoutController {

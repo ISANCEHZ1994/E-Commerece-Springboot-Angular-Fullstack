@@ -8,6 +8,14 @@ import com.luv2code.ecommerce.entity.Customer;
 // when a purchase we grab the customer, assemble it accordingly and then save the customer using this repository
 public interface CustomerRepository extends JpaRepository<Customer, Long>{
 
-	// we need to create our service package => CheckoutService	
+	// we need to create our service package => CheckoutService - NOTE: it is created!
 	
+	// Spring Data REST and Spring Data JPA supports "query methods"
+	// Spring will construct a query based on method naming conventions
+	
+	 Customer findByEmail(String theEmail);
+	
+	// theEmail variable - behind the scenes, Spring will execute a query similar to this:
+	// 		Select * From Customer c where c.email = theEmail;
+		
 };

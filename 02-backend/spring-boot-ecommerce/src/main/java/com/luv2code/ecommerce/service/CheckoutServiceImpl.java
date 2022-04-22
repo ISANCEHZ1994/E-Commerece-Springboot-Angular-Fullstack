@@ -44,17 +44,30 @@ public class CheckoutServiceImpl implements CheckoutService {
 		
 		// populate order with orderItems
 		Set<OrderItem> orderItems = purchase.getOrderItems();
-//		System.out.println(orderItems + " orderItems declared first");
 		
 		orderItems.forEach(item -> order.add(item));
-//		System.out.println(orderItems + " maybe a change?");
+
 		// populate order with billingAddress and shippingAddress
 		order.setBillingAddress(  purchase.getBillingAddress() );
 		order.setShippingAddress( purchase.getShippingAddress() );
 		
-//		System.out.println(order + " this should be the order..");
 		// populate customer with order
-		Customer customer = purchase.getCustomer();
+		Customer customer = purchase.getCustomer();		
+		
+		// <======== [ Handle Cusomter by Email ] =====================> 
+		// check if this is an existing customer...
+		String theEmail = customer.getEmail();
+		
+		Customer customerFromDB = customerRepository.findByEmail(theEmail);
+		
+		if( customerFromDB != null ) {
+			// we found them...let's assign them accordingly
+			customer = customerFromDB;
+		}
+		// now we can only use one email per new user!
+		// <===========================================================>
+		
+		// add the order to the customer
 		customer.add( order );
 		
 		// save to the database
