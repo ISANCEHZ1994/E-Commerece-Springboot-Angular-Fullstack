@@ -61,10 +61,7 @@ export class CartService {
             this.cartItems.push(theCartItem);
         }; 
         // compute cart total price and total quantity
-        this.computeCartTotals();
-
-        // persist cart data - that we set up 
-        this.persistCartItems();
+        this.computeCartTotals();        
     };
 
     computeCartTotals(){
@@ -81,6 +78,9 @@ export class CartService {
 
         // log cart data just for debugging purposes
         this.logCartData(totalPriceValue, totalQuantityValue);
+
+        // persist cart data - that we set up 
+        this.persistCartItems();
     };
 
     logCartData( totalPriceValue: number, totalQuantityValue: number ) {

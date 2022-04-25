@@ -1,8 +1,8 @@
 import { Observable, of } from 'rxjs';
 import { Injectable }     from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Country }    from '../common/country';
-import { State }      from '../common/state';
+import { HttpClient }     from '@angular/common/http';
+import { Country }        from '../common/country';
+import { State }          from '../common/state';
 import { GetResponseCountries } from '../interfaces/get-response-countries'; 
 import { GetResponseStates }    from '../interfaces/get-response-states'; 
 import { map } from 'rxjs';

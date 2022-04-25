@@ -26,6 +26,7 @@ import {
 
 import { OktaAuth } from '@okta/okta-auth-js';
 import myAppConfig  from './config/my-app-config';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 
 const oktaConfig = Object.assign({
 
@@ -46,8 +47,8 @@ const routes: Routes = [
     { path: 'login',          component: LoginComponent },
 
     // <canActivate> Route Guard: if authenticated give access to route else, send to login page
-    { path: 'members',        component: MembersPageComponent, canActivate: [ OktaAuthGuard ]},
-
+    { path: 'members',        component: MembersPageComponent, canActivate: [ OktaAuthGuard ]},    
+    { path: 'order-history',  component: OrderHistoryComponent, canActivate: [ OktaAuthGuard ]},
     { path: 'checkout',           component: CheckoutComponent },
     { path: 'cart-details',       component: CartDetailsComponent },
     { path: 'products/:id',       component: ProductDetailsComponent },
@@ -73,6 +74,7 @@ const routes: Routes = [
     LoginComponent,
     LoginStatusComponent,
     MembersPageComponent,
+    OrderHistoryComponent,
   ],
   imports: [
     RouterModule.forRoot( routes ),

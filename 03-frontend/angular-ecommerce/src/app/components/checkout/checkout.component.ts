@@ -24,13 +24,15 @@ export class CheckoutComponent implements OnInit {
   totalQuantity:  number = 0;
   
   // since we are using luv2ShopService
-  creditCardYears: number[] = [];
+  creditCardYears:  number[] = [];
   creditCardMonths: number[] = [];
 
   countries: Country[] = [];
 
   shippingAddressStates:  State[] = [];
   billingAddressStates:   State[] = [];
+
+  storage: Storage = sessionStorage;
 
   constructor( 
     private formBuilder:     FormBuilder, 
@@ -41,6 +43,12 @@ export class CheckoutComponent implements OnInit {
   ) { };
 
   ngOnInit() {
+
+    this.reviewCartDetails();
+
+    // read the user's email address from browser storage
+    const theEmail = JSON.parse( this.storage.getItem('userEmail'));
+
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: new FormControl('',
@@ -57,7 +65,7 @@ export class CheckoutComponent implements OnInit {
               Luv2ShopValidators.notOnlyWhitespace
             ]
         ),
-        email: new FormControl('',
+        email: new FormControl( theEmail, // using the email from the session
             [ 
               Validators.required, 
               // NOTE: email all needs to be lowercase!
@@ -150,6 +158,7 @@ export class CheckoutComponent implements OnInit {
         expirationYear: ['']
       })
     });
+
     // populate credit card months
     const startMonth: number = new Date().getMonth() + 1;
     console.log("startMonth: " + startMonth);
@@ -159,7 +168,6 @@ export class CheckoutComponent implements OnInit {
           this.creditCardMonths = data;
       }
     );
-
     // populate credit card years 
     this.l2FormService.getCreditCardYears().subscribe(
       data => {
@@ -167,7 +175,6 @@ export class CheckoutComponent implements OnInit {
           this.creditCardYears = data;
       }
     );
-
     // populate countriews
     this.l2FormService.getCountries().subscribe(
       data => {
@@ -175,10 +182,7 @@ export class CheckoutComponent implements OnInit {
             this.countries = data;
       }
     );
-
-    this.reviewCartDetails();
-
-  }; // CLOSES ngOnInit 
+  }; // ============= [ CLOSES ngOnInit ] ==================
 
   onSubmit(){
     console.log('handling the submit button');
@@ -226,7 +230,10 @@ export class CheckoutComponent implements OnInit {
     this.checkoutService.placeOrder( purchase ).subscribe({
         next: response => { 
           alert(`Your order has been received! \nOrder tracking number: ${ response.orderTrackingNumber }`);
+
+          // reset cart
           this.resetCart();
+
         },
         error: err => {
           alert(`There was an error: ${ err.message } when placing your order`);

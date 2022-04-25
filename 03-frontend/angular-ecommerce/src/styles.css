@@ -208,8 +208,9 @@ section{
     padding:0 30px
 }
 
+/* search bar width below */
 .au-input-xl{
-    min-width:935px
+    min-width:500px
 }
 
 input.au-input.au-input-xl{
