@@ -63,7 +63,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer{
 		RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
 	};
 
-	private void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] theUnsupportedActions) {
+	private void disableHttpMethods( Class theClass, RepositoryRestConfiguration config, HttpMethod[] theUnsupportedActions ) {
 		config.getExposureConfiguration()
 			  .forDomainType(theClass) 
 			  .withItemExposure(( metdata, httpMethods ) -> httpMethods.disable( theUnsupportedActions ))

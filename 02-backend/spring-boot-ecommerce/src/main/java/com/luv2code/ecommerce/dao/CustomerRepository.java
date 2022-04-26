@@ -16,6 +16,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
 	 Customer findByEmail(String theEmail);
 	
 	// theEmail variable - behind the scenes, Spring will execute a query similar to this:
-	// 		Select * From Customer c where c.email = theEmail;
+	// 		SELECT * FROM Customer c
+	// 		WHERE c.email = theEmail <== the variable we are looking for!
 		
 };

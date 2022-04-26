@@ -5,8 +5,25 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-public class SecurityConfiguration {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		// protect endpoint /api/orders
+		http.authorizeRequests()
+			.antMatchers("/api/orders/**")
+			.authenticated()
+			.and()
+			.oauth2ResourceServer()
+			.jwt();
+		
+		// add CORS filter
+		http.cors();
+		
+	};
 	
 	
 	
-}
+};

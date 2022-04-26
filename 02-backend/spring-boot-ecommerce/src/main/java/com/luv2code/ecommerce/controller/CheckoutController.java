@@ -7,7 +7,8 @@ import com.luv2code.ecommerce.service.CheckoutService;
 
 // CheckoutController => CheckoutService => Spring Data JPA Repository
 
-// @CrossOrigin("http://localhost:4200")
+// @CrossOrigin("http://localhost:4200") <== replaced in application.properties with allowed.origins 
+
 @RestController
 @RequestMapping("/api/checkout")
 public class CheckoutController {

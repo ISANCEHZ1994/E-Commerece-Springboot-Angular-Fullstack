@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 //@CrossOrigin("http://localhost:4200") => look at MyDataRestConfig for what we replaced this with..
 @RepositoryRestResource
 public interface ProductRepository extends JpaRepository< Product, Long > {
-// <> inside => Product is the Entity and Long is the Primary Key
+// inside the contents of <> => Product is the Entity and Long is the Primary Key
+	
+		// REMEMBER like in CustomerRepository and Order Repository:
+		// Spring Data REST and Spring Data JPA supports "query methods"
+		// Spring will construct a query based on method naming conventions
 	
 	// with this update - now we can see 
 	Page<Product> findByCategoryId(@RequestParam("id") Long id, Pageable pageable);
