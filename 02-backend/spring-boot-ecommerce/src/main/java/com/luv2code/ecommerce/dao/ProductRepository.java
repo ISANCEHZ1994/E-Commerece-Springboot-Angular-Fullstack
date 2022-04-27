@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin("http://localhost:4200") => look at MyDataRestConfig for what we replaced this with..
+//@CrossOrigin("http://localhost:4200") // => look at MyDataRestConfig for what we replaced this with..
 @RepositoryRestResource
 public interface ProductRepository extends JpaRepository< Product, Long > {
 // inside the contents of <> => Product is the Entity and Long is the Primary Key
