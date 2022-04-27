@@ -4,7 +4,7 @@ import com.luv2code.ecommerce.entity.ProductCategory;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RepositoryRestResource( collectionResourceRel = "productCategory", path = "product-category" )
 // "productCategory" <== name of JSON entry  "product-category" <== /product-category (url)
