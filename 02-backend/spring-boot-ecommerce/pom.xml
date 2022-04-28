@@ -17,13 +17,6 @@
 		<java.version>13</java.version>
 	</properties>
 	<dependencies>
-
-		<dependency>
-			<groupId>com.okta.spring</groupId>
-			<artifactId>okta-spring-boot-starter</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -32,6 +25,33 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		
+		<!-- Since we are using Okta oauth2 -->
+		<!-- below will help us use it in the backend -->
+		<!-- the URI will be provided by the Okta Spring Boot Starter -->
+		<!-- URI: http://localhost:8080/login/oauth2/code/okta -->
+		<!-- meaning that literally we dont have to write any code that connects to (expose) that endpoint-->
+		<dependency>
+			<groupId>com.okta.spring</groupId>
+			<artifactId>okta-spring-boot-starter</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		
+		<!--[ StackOverflow: https://stackoverflow.com/questions/43651671/unsatisfied-dependency-expressed-through-method-setcontentnegotationstrategy-p ]-->
+		<!--<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		</dependency>		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>	 -->
+		<!-- ============ StackOverflow ========================== --> 
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -47,12 +67,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 
@@ -61,6 +75,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -1,6 +1,6 @@
 import { NgModule }             from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
-import { HttpClientModule }     from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS }     from '@angular/common/http';
 import { BrowserModule }        from '@angular/platform-browser';
 import { NgbModule }            from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule }  from '@angular/forms';
@@ -27,6 +27,7 @@ import {
 import { OktaAuth } from '@okta/okta-auth-js';
 import myAppConfig  from './config/my-app-config';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 const oktaConfig = Object.assign({
 
@@ -89,6 +90,14 @@ const routes: Routes = [
     { 
       provide: OKTA_CONFIG, 
       useValue: { oktaAuth } 
+    },
+    {
+      // token for HTTP interceptors
+      provide: HTTP_INTERCEPTORS,
+      // register our AuthInterceptorService as an HTTP interceptor
+      useClass: AuthInterceptorService,
+      // informs Angular that HTTP_INTERCEPTORS is a token for injecting an array of values
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

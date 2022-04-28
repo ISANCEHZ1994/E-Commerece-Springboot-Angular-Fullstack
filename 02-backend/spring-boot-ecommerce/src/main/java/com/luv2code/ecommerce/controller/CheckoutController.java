@@ -26,8 +26,13 @@ public class CheckoutController {
 		
 		return purchaseResponse;
 	};
+		
+	// fails because we are sending checkout request with HTTP POST
+	// by default CSRF is enabled and performs checks on POST using cookies
+	// Since we are not using Cookies for session tracking, CSRF says request is unauthorized	
+	// we can resolve this by disabling CSRF, this technique is commonly used for REST APIs
+	 
 	
-	 	
 };
 
 
