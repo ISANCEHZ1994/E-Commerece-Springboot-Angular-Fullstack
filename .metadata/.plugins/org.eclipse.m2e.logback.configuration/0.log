@@ -6242,3 +6242,4 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact com.okta.spri
 2022-05-17 11:09:16,649 [Worker-30: Launching spring-boot-ecommerce - SpringBootEcommerceApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2022-05-17 11:09:16,649 [Worker-30: Launching spring-boot-ecommerce - SpringBootEcommerceApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
 2022-05-17 11:09:16,650 [Worker-30: Launching spring-boot-ecommerce - SpringBootEcommerceApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\isanchez\Desktop\Practice\E-Commerce Site\02-backend\spring-boot-ecommerce\src\test\resources
+2022-06-06 14:33:25,839 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
